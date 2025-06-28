@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Form Barang Reject</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f7fa;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 30px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    h1 {
+      text-align: center;
+      color: #e74c3c;
+      margin-bottom: 30px;
+    }
+
+    .form-section {
+      background-color: #fef5f5;
+      padding: 25px;
+      border-radius: 8px;
+      border-left: 4px solid #e74c3c;
+      margin-bottom: 30px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 600;
+      color: #555;
+    }
+
+    input, button {
+      padding: 12px;
+      margin: 8px 0;
+      width: 100%;
+      box-sizing: border-box;
+      font-size: 16px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+    }
+
+    button {
+      background-color: #e74c3c;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #c0392b;
+    }
+
+    .photo-preview img {
+      max-width: 150px;
+      max-height: 150px;
+      margin-top: 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 14px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>PENGADUAN BARANG REJECT</h1>
+
+    <div class="form-section">
+      <form id="formBarang">
+        <div class="form-group">
+          <label for="kodeBarang">Kode Barang*</label>
+          <input type="text" id="kodeBarang" required placeholder="Contoh: PRD-ABC-2023-001" />
+        </div>
+
+        <div class="form-group">
+          <label for="tanggalPembelian">Tanggal Pembelian*</label>
+          <input type="date" id="tanggalPembelian" required />
+        </div>
+
+        <div class="form-group">
+          <label for="fotoBukti">Upload Foto Bukti</label>
+          <input type="file" id="fotoBukti" accept="image/*" />
+          <div class="photo-preview" id="previewFoto"></div>
+        </div>
+
+        <button type="submit">Upload</button>
+      </form>
+    </div>
+
+    <div class="footer">
+      @2025_AhmadSyihanHasabi
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const form = document.getElementById('formBarang');
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const kodeBarang = document.getElementById('kodeBarang').value;
+        const tanggalPembelian = document.getElementById('tanggalPembelian').value;
+
+        alert(`Data disimpan:\nKode Barang: ${kodeBarang}\nTanggal Pembelian: ${tanggalPembelian}`);
+        form.reset();
+
+        // Reset preview gambar juga
+        document.getElementById('previewFoto').innerHTML = '';
+      });
+
+      document.getElementById('fotoBukti').addEventListener('change', function () {
+        const preview = document.getElementById('previewFoto');
+        preview.innerHTML = ''; // Hapus preview sebelumnya
+
+        const file = this.files[0];
+        if (file) {
+          const img = document.createElement('img');
+          img.src = URL.createObjectURL(file);
+          img.alt = 'Preview Foto';
+          img.onload = function () {
+            URL.revokeObjectURL(img.src); // Lepaskan memori
+          };
+          preview.appendChild(img);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
